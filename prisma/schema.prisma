@@ -1,0 +1,82 @@
+// Prisma schema for Toufiltex
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  icon        String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id            String      @id @default(cuid())
+  name          String
+  reference     String      @unique
+  slug          String      @unique
+  description   String
+  composition   String      // e.g. "100% Coton peigné", "80% Lin, 20% Soie"
+  grammage      Int         // en g/m²
+  width         Int         // laize en cm (ex: 140, 150)
+  usage         String      // Vêtement, Ameublement, Rideaux, Linge de lit, etc.
+  certifications String[]   // OEKO-TEX, GOTS, etc.
+  colors        String[]    // hex colors or color names
+  imageUrl      String
+  featured      Boolean     @default(false)
+  minOrderMeters Int        @default(10)
+  inStock       Boolean     @default(true)
+  categoryId    String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  quoteItems    QuoteItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model QuoteRequest {
+  id              String      @id @default(cuid())
+  referenceNumber String      @unique
+  companyName     String
+  contactName     String
+  email           String
+  phone           String
+  projectType     String?     // Confection, Ameublement, Industrie, Décoration
+  deadline        String?
+  notes           String?
+  status          String      @default("PENDING") // PENDING, IN_REVIEW, COMPLETED, CANCELLED
+  items           QuoteItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model QuoteItem {
+  id             String       @id @default(cuid())
+  quoteRequestId String
+  quoteRequest   QuoteRequest @relation(fields: [quoteRequestId], references: [id], onDelete: Cascade)
+  productId      String
+  product        Product      @relation(fields: [productId], references: [id])
+  quantityMeters Int          // Quantité en mètres demandée
+  sampleOnly     Boolean      @default(false) // Si l'utilisateur demande seulement un échantillon
+  selectedColor  String?
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("UNREAD") // UNREAD, READ, REPLIED
+  createdAt DateTime @default(now())
+}
