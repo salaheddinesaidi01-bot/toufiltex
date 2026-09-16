@@ -1,22 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { NotebookSpine } from "@/components/NotebookSpine";
 import { CraftNavbar } from "@/components/CraftNavbar";
-import { DashedThreadScroll } from "@/components/DashedThreadScroll";
+import { ScrollObserver } from "@/components/ScrollObserver";
 
 export default function HomePage() {
   const [formData, setFormData] = useState({
     companyName: "",
     phone: "",
     wilaya: "",
+    need: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [reference, setReference] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await fetch("/api/devis", {
         method: "POST",
@@ -26,9 +27,9 @@ export default function HomePage() {
           contactName: formData.companyName,
           email: `${formData.phone.replace(/[^0-9]/g, "")}@toufiltex.dz`,
           phone: formData.phone,
-          projectType: `Wilaya: ${formData.wilaya}`,
+          projectType: `Wilaya: ${formData.wilaya} | Besoin: ${formData.need}`,
           deadline: "Urgent",
-          notes: `Bon de commande reçu depuis la page d'accueil. Wilaya : ${formData.wilaya}`,
+          notes: `Demande de devis depuis la page d'accueil Ronaltex-style. Wilaya: ${formData.wilaya}. Détails: ${formData.need}`,
           items: [],
         }),
       });
@@ -38,458 +39,548 @@ export default function HomePage() {
     } catch {
       setReference(`TF-${new Date().getFullYear()}-DEMANDE`);
       setSubmitted(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div style={{ position: "relative", minHeight: "100vh", backgroundColor: "var(--bg-light)" }}>
-      {/* 1. NOTEBOOK SPIRAL SPINE (Anneaux de carnet sur la marge gauche) */}
-      <NotebookSpine />
+    <main style={{ position: "relative", minHeight: "100vh", backgroundColor: "var(--bg-page)" }}>
+      {/* 1. SCROLL REVEAL OBSERVER */}
+      <ScrollObserver />
 
-      {/* 2. ANIMATION DU TRAIT POINTILLÉ QUI BOUGE AU SCROLL */}
-      <DashedThreadScroll />
+      {/* 2. MODERN STICKY NAVBAR */}
+      <CraftNavbar />
 
-      {/* Content wrapper indenté pour la reliure carnet */}
-      <div style={{ paddingLeft: "48px" }}>
-        {/* 3. NAVBAR : LOGO + PRÉSENTATION + À PROPOS DE NOUS + CATALOGUE + CONTACT */}
-        <CraftNavbar />
+      {/* ========================================================= */}
+      {/* SECTION 1 : HERO AVEC VIDÉO D'ARRIÈRE-PLAN TEXTILE        */}
+      {/* ========================================================= */}
+      <section id="presentation" className="hero-video-section">
+        {/* Vidéo textile haute définition en boucle */}
+        <video
+          className="hero-video-bg"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src="/videos/hero-textile.mp4" type="video/mp4" />
+        </video>
 
-        {/* ========================================================= */}
-        {/* SECTION 1 : HERO / PRÉSENTATION                           */}
-        {/* ========================================================= */}
-        <section id="presentation" className="bg-light" style={{ paddingTop: "3.5rem" }}>
-          {/* SVG Ligne S1 avec classe animated-thread-path */}
-          <svg className="svg-dashed-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path
-              className="animated-thread-path"
-              d="M 20 0 Q 30 50, 40 100"
-              fill="none"
-              stroke="#8c8273"
-              strokeWidth="0.25"
-              strokeDasharray="1 1"
-            />
-          </svg>
+        {/* Voile de contraste sombre et élégant */}
+        <div className="hero-overlay" />
 
-          <div className="container hero-grid">
-            <div>
-              {/* Badge B2B Algérie */}
-              <div style={{ marginBottom: "1.2rem" }}>
-                <span
-                  style={{
-                    display: "inline-block",
-                    padding: "0.3rem 0.8rem",
-                    borderRadius: "6px",
-                    border: "1px solid #c9baa5",
-                    background: "rgba(0, 0, 0, 0.03)",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    color: "#4a453e",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  B2B ALGÉRIE — استيراد الخيوط
-                </span>
-              </div>
+        {/* Contenu textuel Hero */}
+        <div className="container hero-content">
+          <h1 className="hero-main-title">
+            Spécialiste de l&apos;importation de{" "}
+            <mark>matières premières textiles</mark> dédiées à l&apos;industrie
+          </h1>
 
-              <h1 className="hero-title">
-                Toufiltex :<br />
-                L&apos;excellence du fil<br />
-                importé pour les<br />
-                <span className="highlight-group">
-                  <span className="highlight-text-hand">textiles d&apos;exception</span>
-                  <span className="highlight-crossed">
-                    standards
-                    <svg
-                      style={{ position: "absolute", width: "120%", height: "30px", top: "30%", left: "-10%" }}
-                      viewBox="0 0 100 30"
-                      preserveAspectRatio="none"
-                    >
-                      <path
-                        d="M0,15 Q50,5 100,15"
-                        fill="none"
-                        stroke="var(--red-scribble)"
-                        strokeWidth="4"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                </span>
-                <br />
-                professionnels.
-              </h1>
+          <div className="hero-arabic-subtitle">
+            بيع واستيراد الخيوط النسيجية - جميع الأنواع مباشرة من المصنع إلى ورشاتكم ومصانعكم في الجزائر
+          </div>
 
-              <div className="arabic-box">
-                بيع واستيراد الخيوط النسيجية - جميع<br />
-                الأنواع مباشرة من المصنع إلى ورشاتكم<br />
-                ومصانعكم في الجزائر.
-              </div>
+          <p className="hero-description">
+            Basée à Tlemcen, Toufiltex est votre partenaire direct pour l&apos;approvisionnement régulier de tous types de fils
+            textiles industriels de haute précision. Livraison garantie dans les 58 wilayas sans intermédiaire.
+          </p>
 
-              <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.5rem", maxWidth: "400px" }}>
-                Basée à Tlemcen, Toufiltex est votre partenaire direct pour l&apos;approvisionnement régulier de tous types de fils
-                textiles de qualité industrielle.
-              </p>
+          <div className="hero-actions">
+            <a href="#devis" className="btn-hero-primary">
+              <span>Demander mon devis gratuit</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
 
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                <a href="#devis" className="btn btn-blue">
-                  Demander mon devis gratuit
-                </a>
-                <a
-                  href="https://wa.me/213561219466"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline"
-                >
-                  WhatsApp Direct
-                </a>
-              </div>
+            <a
+              href="https://wa.me/213561219466"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-hero-secondary"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.579 4.183 1.589 5.926l-1.589 5.8 5.975-1.567c1.705.952 3.67 1.491 5.76 1.491 6.627 0 12-5.373 12-12s-5.373-12-12-12z" />
+              </svg>
+              <span>WhatsApp Direct</span>
+            </a>
+          </div>
 
-              <div style={{ display: "flex", gap: "1.2rem", marginTop: "1.2rem", fontSize: "0.72rem", color: "var(--text-muted)" }}>
-                <span>✓ Arrivages réguliers toute l&apos;année</span>
-                <span>✓ Direct d&apos;usine sans intermédiaire</span>
-              </div>
+          <div className="hero-trust-row">
+            <div className="hero-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+              </svg>
+              <span>Arrivages réguliers toute l&apos;année</span>
             </div>
-
-            {/* Polaroid 1 : VRAIES BOBINES DE FIL (et non pas des jeans) */}
-            <div className="polaroid" style={{ transform: "rotate(3deg)", marginTop: "1.5rem" }}>
-              <img
-                src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=600&q=80"
-                alt="Bobines de fil industriel Toufiltex"
-              />
-              <div className="polaroid-caption handwritten">
-                Échantillons de notre dernier arrivage direct d&apos;usine
-              </div>
+            <div className="hero-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+              </svg>
+              <span>Direct filatures sans intermédiaire</span>
+            </div>
+            <div className="hero-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+              </svg>
+              <span>Stock et échantillons à Tlemcen</span>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ========================================================= */}
-        {/* SECTION 2 : ENGAGEMENT / À PROPOS DE NOUS                  */}
-        {/* ========================================================= */}
-        <section id="engagement" className="bg-dark">
-          {/* SVG Ligne S2 avec classe animated-thread-path */}
-          <svg className="svg-dashed-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path
-              className="animated-thread-path"
-              d="M 40 0 Q 10 50, 30 100"
-              fill="none"
-              stroke="#8c8273"
-              strokeWidth="0.25"
-              strokeDasharray="1 1"
-            />
-          </svg>
-
-          <div className="container">
-            <div className="engagement-card">
-              <div className="engagement-arabic">شريككم الموثوق في توريد الخيوط في الجزائر</div>
-              <h2>Notre engagement envers les professionnels de la confection</h2>
-              <p style={{ fontSize: "0.9rem", marginBottom: "1rem", color: "var(--text-dark)" }}>
-                Toufiltex répond à une problématique simple mais cruciale des manufactures de textile en Algérie :{" "}
-                <strong>obtenir un approvisionnement fiable, constant et au prix le plus juste.</strong>
-              </p>
-              <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-                Grâce à nos canaux d&apos;importation directe sans intermédiaires, nous couvrons l&apos;intégralité de vos besoins en fils
-                de coton, polyester, laine et fils techniques spéciaux. Notre implantation stratégique à Tlemcen nous permet d&apos;assurer
-                une proximité de service et une réactivité maximale.
-              </p>
-
-              <div className="engagement-annotation handwritten">
-                Disponibilité garantie toute<br />
-                l&apos;année et conseil de<br />
-                spécialistes !
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================= */}
-        {/* SECTION 3 : CATALOGUE & BANNIERE                          */}
-        {/* ========================================================= */}
-        <section id="catalogue" className="bg-light">
-          {/* SVG Ligne S3 avec classe animated-thread-path */}
-          <svg className="svg-dashed-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path
-              className="animated-thread-path"
-              d="M 30 0 Q 90 50, 70 100"
-              fill="none"
-              stroke="#8c8273"
-              strokeWidth="0.25"
-              strokeDasharray="1 1"
-            />
-          </svg>
-
-          <div className="container">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
-              <h2 className="catalog-title" style={{ margin: 0 }}>
-                L&apos;Échantillonneur Toufiltex
-              </h2>
-              <div style={{ direction: "rtl", fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 600 }}>
-                عينات الخيوط المتوفرة
-              </div>
-            </div>
-
-            <div className="grid-3">
-              <div className="card">
-                <span className="card-tag">INDUSTRIEL</span>
+      {/* ========================================================= */}
+      {/* SECTION 2 : NOS GAMMES DE FILS (OVERLAPPING CARDS)        */}
+      {/* ========================================================= */}
+      <section id="gammes" className="overlapping-cards-section">
+        <div className="container">
+          <div className="cards-grid-3">
+            {/* CARTE 1 : FILS INDUSTRIELS */}
+            <div className="modern-product-card reveal-on-scroll stagger-1">
+              <div className="card-image-wrap">
+                <span className="card-badge">INDUSTRIEL</span>
                 <img
                   src="/images/bobines-fil-industriel.jpg"
                   alt="Fils Industriels & Techniques"
                 />
-                <h3>Fils Industriels & Techniques</h3>
-                <p>Fils à haute résistance conçus pour les cadences élevées.</p>
               </div>
+              <div className="card-body">
+                <h3>Fils Industriels & Techniques</h3>
+                <p>
+                  Fils haute résistance et ténacité accrue calibrés pour les métiers à tisser rapides et les cadences industrielles intenses.
+                </p>
+                <a href="/catalogue" className="card-action-btn">
+                  <span>Je découvre</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
 
-              <div className="card">
-                <span className="card-tag">POLYESTER</span>
+            {/* CARTE 2 : FILS EN POLYESTER */}
+            <div className="modern-product-card reveal-on-scroll stagger-2">
+              <div className="card-image-wrap">
+                <span className="card-badge" style={{ background: "#c24637" }}>POLYESTER</span>
                 <img
                   src="/images/fils-polyester.jpg"
                   alt="Fils en Polyester"
                 />
-                <h3>Fils en Polyester</h3>
-                <p>Fils polyester haute ténacité pour tissage et couture sans rupture.</p>
               </div>
+              <div className="card-body">
+                <h3>Fils en Polyester</h3>
+                <p>
+                  100% polyester spun et texturé de première qualité. Régularité micrométrique pour un tissage fluide sans friction ni rupture.
+                </p>
+                <a href="/catalogue" className="card-action-btn">
+                  <span>Je découvre</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
 
-              <div className="card">
-                <span className="card-tag">CONFECTION</span>
+            {/* CARTE 3 : FILS DE CONFECTION */}
+            <div className="modern-product-card reveal-on-scroll stagger-3">
+              <div className="card-image-wrap">
+                <span className="card-badge" style={{ background: "#059669" }}>CONFECTION</span>
                 <img
                   src="/images/fils-confection.jpg"
                   alt="Fils de Confection"
                 />
-                <h3>Fils de Confection</h3>
-                <p>Nuancier riche et fils résistants pour ateliers de prêt-à-porter et couture.</p>
               </div>
-            </div>
-
-            <div className="red-banner">
-              <h3>Besoin d&apos;un fil spécifique ?</h3>
-              <p>
-                Polyester, Coton, Acrylique, Laine, Fils Elastiques... Nous importons toutes les spécifications sur demande.
-                Contactez-nous !
-              </p>
+              <div className="card-body">
+                <h3>Fils de Confection</h3>
+                <p>
+                  Vaste nuancier de teintes éclatantes, haute résistance au lavage et à l&apos;abrasion pour ateliers de confection et prêt-à-porter.
+                </p>
+                <a href="/catalogue" className="card-action-btn">
+                  <span>Je découvre</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
-        </section>
 
-        {/* ========================================================= */}
-        {/* SECTION 4 : CONFIANCE                                     */}
-        {/* ========================================================= */}
-        <section className="bg-dark">
-          {/* SVG Ligne S4 avec classe animated-thread-path */}
-          <svg className="svg-dashed-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path
-              className="animated-thread-path"
-              d="M 70 0 Q -10 50, 40 100"
-              fill="none"
-              stroke="#8c8273"
-              strokeWidth="0.25"
-              strokeDasharray="1 1"
-            />
-          </svg>
+          {/* BOUTON JE DÉCOUVRE (POUR TOUT VOIR) */}
+          <div style={{ textAlign: "center", margin: "1.5rem 0 1rem" }} className="reveal-on-scroll">
+            <a
+              href="/catalogue"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.8rem",
+                padding: "0.95rem 2.5rem",
+                borderRadius: "10px",
+                background: "var(--primary-blue)",
+                color: "#ffffff",
+                fontSize: "1.05rem",
+                fontWeight: 800,
+                textDecoration: "none",
+                boxShadow: "0 6px 20px rgba(15, 43, 92, 0.25)",
+                border: "2px solid var(--primary-blue)",
+                transition: "all 0.25s ease",
+              }}
+              className="btn-discover-all"
+            >
+              <span>Je découvre tous les produits</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+          </div>
 
-          <div className="container trust-grid">
+          {/* BANNIÈRE SPÉCIFIQUE (CALLOUT) */}
+          <div className="modern-callout-banner reveal-on-scroll stagger-4">
             <div>
-              <div style={{ direction: "rtl", fontSize: "0.8rem", color: "var(--red-banner)", fontWeight: 700, marginBottom: "0.4rem" }}>
-                لماذا تختار توفيلتكس ؟
+              <h3>Besoin d&apos;un fil spécifique ou d&apos;une référence sur-mesure ?</h3>
+              <p>
+                Polyester, Coton, Acrylique, Laine, Fils Élastiques, Polyamide... Nous importons toutes les spécifications techniques sur commande pour vos besoins industriels.
+              </p>
+            </div>
+            <a
+              href="https://wa.me/213561219466"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-hero-primary"
+              style={{ flexShrink: 0 }}
+            >
+              Échanger avec notre expert
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================= */}
+      {/* SECTION 3 : EXPERTISE & POURQUOI CHOISIR TOUFILTEX        */}
+      {/* ========================================================= */}
+      <section className="section-expertise">
+        <div className="container expertise-grid">
+          <div className="reveal-on-scroll stagger-1">
+            <span className="section-tag">EXCELLENCE & FIABILITÉ B2B</span>
+            <h2 className="section-title">
+              Pourquoi confier votre approvisionnement à Toufiltex ?
+            </h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.65 }}>
+              Toufiltex répond à l&apos;exigence fondamentale des industriels et confectionneurs en Algérie : sécuriser des arrivages
+              stables, sans rupture de cadence et avec un rapport qualité/prix garanti d&apos;usine.
+            </p>
+
+            <div className="benefits-list">
+              <div className="benefit-card">
+                <div className="benefit-icon-box">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div className="benefit-text">
+                  <h4>Importation Directe d&apos;Usine</h4>
+                  <p>
+                    Zéro intermédiaire superflu. Nous négocions directement auprès des meilleures filatures certifiées pour vous garantir les tarifs de gros les plus compétitifs du marché algérien.
+                  </p>
+                </div>
               </div>
-              <h2 className="trust-title">
-                Pourquoi nous faire<br />
-                confiance ?
-              </h2>
-              <div className="trust-list">
-                <div className="trust-item">
-                  <div className="checkbox-icon">✓</div>
-                  <div>
-                    <h4>Importation Directe d&apos;Usine</h4>
-                    <p>
-                      Aucun intermédiaire. Nous négocions directement auprès des meilleures filatures mondiales pour vous
-                      garantir des tarifs de gros ultra-compétitifs.
-                    </p>
-                  </div>
+
+              <div className="benefit-card">
+                <div className="benefit-icon-box">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
                 </div>
-                <div className="trust-item">
-                  <div className="checkbox-icon">✓</div>
-                  <div>
-                    <h4>Régularité et Stabilité des Approvisionnements</h4>
-                    <p>
-                      Évitez les ruptures de stock critiques qui paralysent votre production. Nous planifions des arrivages
-                      constants tout au long de l&apos;année.
-                    </p>
-                  </div>
+                <div className="benefit-text">
+                  <h4>Régularité & Sécurité des Approvisionnements</h4>
+                  <p>
+                    Évitez les arrêts de production causés par des ruptures de matière première. Nos conteneurs réguliers assurent une continuité d&apos;activité sans accroc.
+                  </p>
                 </div>
-                <div className="trust-item">
-                  <div className="checkbox-icon">✓</div>
-                  <div>
-                    <h4>Proximité & Accompagnement à Tlemcen</h4>
-                    <p>
-                      Un interlocuteur unique basé à Tlemcen, prêt à évaluer vos besoins techniques exacts et à vous fournir des
-                      échantillons physiques.
-                    </p>
-                  </div>
+              </div>
+
+              <div className="benefit-card">
+                <div className="benefit-icon-box">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                </div>
+                <div className="benefit-text">
+                  <h4>Proximité & Échantillonnage à Tlemcen</h4>
+                  <p>
+                    Un siège basé à Tlemcen avec possibilité d&apos;évaluation technique sur site et expédition rapide d&apos;échantillons physiques sur simple demande.
+                  </p>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Polaroid 2 */}
-            <div className="polaroid" style={{ transform: "rotate(-2deg)", margin: "0 auto", maxWidth: "350px" }}>
+          <div className="reveal-on-scroll stagger-2">
+            <div className="expertise-visual-card">
               <img
                 src="/images/fils-industriels-cones.jpg"
                 alt="Fils textiles de qualité supérieure Toufiltex"
               />
-              <div className="polaroid-caption handwritten" style={{ fontSize: "1.1rem" }}>
-                Qualité de fil constante contrôlée à chaque lot
+              <div className="expertise-visual-badge">
+                <h5>Contrôle Qualité & Échantillons</h5>
+                <p>Chaque lot importé répond aux critères d&apos;uniformité et de résistance requis par l&apos;industrie textile moderne.</p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ========================================================= */}
-        {/* SECTION 5 : DEVIS & CONTACT                               */}
-        {/* ========================================================= */}
-        <section id="devis" className="bg-light">
-          {/* SVG Ligne S5 avec classe animated-thread-path */}
-          <svg className="svg-dashed-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path
-              className="animated-thread-path"
-              d="M 40 0 Q 80 30, 90 100"
-              fill="none"
-              stroke="#8c8273"
-              strokeWidth="0.25"
-              strokeDasharray="1 1"
-            />
-          </svg>
+      {/* ========================================================= */}
+      {/* SECTION 4 : CHIFFRES CLÉS & STATISTIQUES                  */}
+      {/* ========================================================= */}
+      <section className="stats-section">
+        <div className="container stats-grid">
+          <div className="stat-item reveal-on-scroll stagger-1">
+            <div className="stat-number">48h</div>
+            <div className="stat-label">Délai devis & échantillons</div>
+          </div>
 
-          <div className="container devis-grid">
-            <div className="form-container">
-              <div style={{ direction: "rtl", fontWeight: 700, fontSize: "0.8rem", color: "var(--primary-blue)", marginBottom: "0.5rem" }}>
-                طلب تسعيرة مجانية — بون الطلبية
-              </div>
-              <h2>Votre Bon de Commande / Devis</h2>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "1.5rem" }}>
-                Complétez ce formulaire pour recevoir votre devis personnalisé gratuit sous 24h.
-              </p>
+          <div className="stat-item reveal-on-scroll stagger-2">
+            <div className="stat-number">100%</div>
+            <div className="stat-label">Direct usine sans intermédiaire</div>
+          </div>
 
+          <div className="stat-item reveal-on-scroll stagger-3">
+            <div className="stat-number">58</div>
+            <div className="stat-label">Wilayas livrées en Algérie</div>
+          </div>
+
+          <div className="stat-item reveal-on-scroll stagger-4">
+            <div className="stat-number">+15</div>
+            <div className="stat-label">Ans d&apos;expertise textile</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================= */}
+      {/* SECTION 5 : BON DE COMMANDE & DEVIS EN LIGNE              */}
+      {/* ========================================================= */}
+      <section id="devis" className="section-devis">
+        <div className="container">
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span className="section-tag">DEVIS EXPRESS B2B</span>
+            <h2 className="section-title">Demandez votre cotation gratuite</h2>
+            <p style={{ color: "var(--text-secondary)", maxWidth: "600px", margin: "0 auto" }}>
+              Recevez notre meilleure offre de prix sous 24h ouvrées, adaptée aux volumes et spécifications de vos ateliers.
+            </p>
+          </div>
+
+          <div className="devis-container-grid">
+            {/* Formulaire interactif */}
+            <div className="devis-card reveal-on-scroll stagger-1">
               {submitted ? (
-                <div style={{ background: "#fdfbf7", border: "1.5px solid var(--primary-blue)", padding: "1.5rem", borderRadius: "6px", textAlign: "center" }}>
-                  <div className="handwritten" style={{ fontSize: "2rem", color: "var(--primary-blue)", marginBottom: "0.5rem" }}>
-                    Merci pour votre demande !
+                <div style={{ textAlign: "center", padding: "2rem 1rem" }}>
+                  <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#dcfce7", color: "#16a34a", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.2rem" }}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
                   </div>
-                  <p style={{ fontSize: "0.85rem", color: "var(--text-dark)", marginBottom: "0.8rem" }}>
-                    Votre référence : <strong>{reference}</strong>
+                  <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--primary-blue)", marginBottom: "0.5rem" }}>
+                    Demande transmise avec succès !
+                  </h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginBottom: "1rem" }}>
+                    Votre référence client : <strong style={{ color: "var(--primary-blue)" }}>{reference}</strong>
                   </p>
-                  <p style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
-                    Notre équipe commerciale à Tlemcen vous recontactera directement sous 24h.
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", maxWidth: "450px", margin: "0 auto 1.5rem" }}>
+                    Notre équipe commerciale à Tlemcen examine votre demande et vous recontactera directement sous 24h.
                   </p>
                   <button
                     type="button"
                     onClick={() => setSubmitted(false)}
-                    className="btn btn-outline"
-                    style={{ marginTop: "1rem", fontSize: "0.8rem" }}
+                    className="card-action-btn"
+                    style={{ margin: "0 auto", cursor: "pointer" }}
                   >
-                    Faire une autre demande
+                    Nouvelle demande de cotation
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label>Nom de votre entreprise / Atelier</label>
+                  <div className="form-group-modern">
+                    <label className="form-label-modern">Nom de l&apos;entreprise ou atelier *</label>
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="Ex: Atelier Confection Tlemcen"
+                      className="form-input-modern"
+                      placeholder="Ex: Société Textile de Confection"
                       required
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Numéro de téléphone (Algérie)</label>
+
+                  <div className="form-group-modern">
+                    <label className="form-label-modern">Numéro de téléphone direct (Algérie) *</label>
                     <input
                       type="tel"
-                      className="form-control"
-                      placeholder="+213 Ex: 561219466"
+                      className="form-input-modern"
+                      placeholder="+213 Ex: 05 61 21 94 66"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Votre Wilaya (Algérie)</label>
-                    <select
-                      className="form-control"
+
+                  <div className="form-group-modern">
+                    <label className="form-label-modern">Wilaya d&apos;implantation *</label>
+                    <input
+                      type="text"
+                      className="form-input-modern"
+                      placeholder="Ex: Tlemcen, Oran, Alger, Sétif, Constantine..."
                       required
                       value={formData.wilaya}
                       onChange={(e) => setFormData({ ...formData, wilaya: e.target.value })}
-                    >
-                      <option value="">Sélectionnez votre région</option>
-                      <option value="Tlemcen">13 - Tlemcen</option>
-                      <option value="Oran">31 - Oran</option>
-                      <option value="Alger">16 - Alger</option>
-                      <option value="Constantine">25 - Constantine</option>
-                      <option value="Sétif">19 - Sétif</option>
-                      <option value="Blida">09 - Blida</option>
-                      <option value="Béjaïa">06 - Béjaïa</option>
-                      <option value="Sidi Bel Abbès">22 - Sidi Bel Abbès</option>
-                      <option value="Mostaganem">27 - Mostaganem</option>
-                      <option value="Autre Wilaya">Autre Wilaya (Livraison 58 Wilayas)</option>
-                    </select>
+                    />
                   </div>
-                  <button type="submit" className="btn btn-blue" style={{ width: "100%", marginTop: "1rem" }}>
-                    Envoyer ma demande de devis
+
+                  <div className="form-group-modern">
+                    <label className="form-label-modern">Types de fils et volumes souhaités</label>
+                    <textarea
+                      rows={3}
+                      className="form-textarea-modern"
+                      placeholder="Précisez les matières (polyester, confection, industriel...), les titrages et les quantités estimées..."
+                      value={formData.need}
+                      onChange={(e) => setFormData({ ...formData, need: e.target.value })}
+                    />
+                  </div>
+
+                  <button type="submit" className="btn-submit-devis" disabled={loading}>
+                    {loading ? "Envoi en cours..." : "Transmettre ma demande de devis"}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
                   </button>
                 </form>
               )}
             </div>
 
-            <div className="contact-info">
-              <div className="contact-card">
-                <h4>Discutez en direct</h4>
-                <p>+213 561 21 94 66</p>
-                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Notre canal WhatsApp est disponible.</span>
+            {/* Coordonnées & Accompagnement */}
+            <div id="contact" className="devis-info-box reveal-on-scroll stagger-2">
+              <div className="info-card-contact">
+                <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.8rem" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(37, 211, 102, 0.15)", color: "#25d366", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.579 4.183 1.589 5.926l-1.589 5.8 5.975-1.567c1.705.952 3.67 1.491 5.76 1.491 6.627 0 12-5.373 12-12s-5.373-12-12-12z" />
+                    </svg>
+                  </div>
+                  <h4 style={{ margin: 0 }}>Service Commercial & WhatsApp</h4>
+                </div>
+                <p style={{ fontWeight: 700, color: "var(--primary-blue)", fontSize: "1.1rem", marginBottom: "0.2rem" }}>
+                  +213 561 21 94 66
+                </p>
+                <p style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+                  Disponible du Samedi au Jeudi pour conseils techniques et devis instantanés.
+                </p>
               </div>
-              <div className="contact-card">
-                <h4>Contact Email</h4>
-                <p>salaheddinesaid101@gmail.com</p>
+
+              <div className="info-card-contact">
+                <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.8rem" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(15, 43, 92, 0.1)", color: "var(--primary-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <h4 style={{ margin: 0 }}>Courriel Direct</h4>
+                </div>
+                <p style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem", marginBottom: "0.2rem" }}>
+                  salaheddinesaid101@gmail.com
+                </p>
+                <p style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+                  Réponse écrite garantie sous 24h avec fiche technique de nos fils.
+                </p>
               </div>
-              <div className="contact-card">
-                <h4>Siège de l&apos;entreprise</h4>
-                <p>Tlemcen, Algérie</p>
-                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Importateur direct, expédition nationale.</span>
+
+              <div className="info-card-contact">
+                <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.8rem" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(194, 70, 55, 0.1)", color: "var(--accent-red)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <h4 style={{ margin: 0 }}>Siège Social & Dépôt</h4>
+                </div>
+                <p style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem", marginBottom: "0.2rem" }}>
+                  Tlemcen, Algérie
+                </p>
+                <p style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+                  Plateforme logistique d&apos;importation directe avec livraison nationale rapide.
+                </p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FOOTER */}
-        <footer className="bg-dark">
-          {/* SVG Ligne Footer */}
-          <svg className="svg-dashed-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path
-              className="animated-thread-path"
-              d="M 90 0 Q 50 60, 10 100"
-              fill="none"
-              stroke="#8c8273"
-              strokeWidth="0.25"
-              strokeDasharray="1 1"
-            />
-          </svg>
-          <div className="handwritten footer-logo">Toufiltex Tlemcen</div>
-          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>
-            &copy; {new Date().getFullYear()} Toufiltex — Tous droits réservés. Tlemcen, Algérie.
+      {/* ========================================================= */}
+      {/* FOOTER CORPORATE MODERNE                                  */}
+      {/* ========================================================= */}
+      <footer className="modern-footer">
+        <div className="container">
+          <div className="footer-grid">
+            <div className="footer-brand">
+              <h3>TOUFILTEX IMPORT</h3>
+              <p>
+                Spécialiste de l&apos;importation et de la distribution de matières premières textiles et fils industriels de haute qualité en Algérie.
+              </p>
+            </div>
+
+            <div className="footer-col">
+              <h4>Navigation</h4>
+              <ul className="footer-links">
+                <li><a href="#presentation">Qui sommes-nous</a></li>
+                <li><a href="#gammes">Nos gammes de fils</a></li>
+                <li><a href="#devis">Demande de devis</a></li>
+                <li><a href="#contact">Contact & Localisation</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4>Gamme de Fils</h4>
+              <ul className="footer-links">
+                <li><a href="#gammes">Fils Industriels & Techniques</a></li>
+                <li><a href="#gammes">Fils en Polyester Spun</a></li>
+                <li><a href="#gammes">Fils de Confection & Couture</a></li>
+                <li><a href="#gammes">Fils sur-mesure & Spéciaux</a></li>
+              </ul>
+            </div>
           </div>
-        </footer>
 
-        {/* Floating WhatsApp Button */}
-        <a
-          href="https://wa.me/213561219466"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="floating-whatsapp"
-          title="WhatsApp Direct +213 561 21 94 66"
-        >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.579 4.183 1.589 5.926l-1.589 5.8 5.975-1.567c1.705.952 3.67 1.491 5.76 1.491 6.627 0 12-5.373 12-12s-5.373-12-12-12z" />
-          </svg>
-        </a>
-      </div>
-    </div>
+          <div className="footer-bottom">
+            <div>
+              &copy; {new Date().getFullYear()} Toufiltex — Tous droits réservés. Tlemcen, Algérie.
+            </div>
+            <div>
+              Plateforme d&apos;approvisionnement direct pour l&apos;industrie textile algérienne.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* FLOATING WHATSAPP CTA */}
+      <a
+        href="https://wa.me/213561219466"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-whatsapp-btn"
+        title="WhatsApp Direct Toufiltex"
+      >
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.579 4.183 1.589 5.926l-1.589 5.8 5.975-1.567c1.705.952 3.67 1.491 5.76 1.491 6.627 0 12-5.373 12-12s-5.373-12-12-12z" />
+        </svg>
+      </a>
+    </main>
   );
 }

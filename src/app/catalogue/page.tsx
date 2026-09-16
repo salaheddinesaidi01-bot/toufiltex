@@ -10,18 +10,31 @@ function CatalogueContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("cat") || "all";
 
+  const [productsList, setProductsList] = useState(PRODUCTS);
+  const [categoriesList, setCategoriesList] = useState(CATEGORIES);
+
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGrammage, setSelectedGrammage] = useState<string>("all");
   const [selectedCertif, setSelectedCertif] = useState<string>("all");
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
+  React.useEffect(() => {
+    fetch("/api/produits")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.products) setProductsList(data.products);
+        if (data.categories) setCategoriesList(data.categories);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   // Filter logic
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return productsList.filter((product) => {
       // Category match
       if (selectedCategory !== "all") {
-        const cat = CATEGORIES.find((c) => c.slug === selectedCategory);
+        const cat = categoriesList.find((c) => c.slug === selectedCategory);
         if (cat && product.categoryId !== cat.id) return false;
       }
 

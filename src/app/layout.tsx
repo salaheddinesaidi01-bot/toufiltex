@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   keywords: "Toufiltex, fils textiles, Algérie, Tlemcen, filature, coton peigné, polyester, fils industriels, confection",
 };
 
+import { CartProvider } from "@/lib/cart-context";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,7 +25,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+        <CartProvider>
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
