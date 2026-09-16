@@ -101,7 +101,7 @@ export function CraftNavbar() {
         }}
       >
         <a
-          href="#presentation"
+          href="/#presentation"
           style={{
             textDecoration: "none",
             fontSize: "0.92rem",
@@ -123,7 +123,7 @@ export function CraftNavbar() {
         </a>
 
         <a
-          href="#gammes"
+          href="/#gammes"
           style={{
             textDecoration: "none",
             fontSize: "0.92rem",
@@ -145,7 +145,7 @@ export function CraftNavbar() {
         </a>
 
         <a
-          href="#devis"
+          href="/#contact"
           style={{
             textDecoration: "none",
             fontSize: "0.92rem",

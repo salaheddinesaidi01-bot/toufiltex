@@ -160,15 +160,15 @@ function CatalogueContent() {
             }}
           >
             <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-              <Package size={16} color="#22c55e" />
+              <Package size={16} color="#cbd5e1" />
               <span>Direct Filatures usine</span>
             </div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-              <Sparkles size={16} color="#93c5fd" />
+              <Sparkles size={16} color="#cbd5e1" />
               <span>Échantillons sous 48h</span>
             </div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-              <Layers size={16} color="#fcd34d" />
+              <Layers size={16} color="#cbd5e1" />
               <span>58 Wilayas couvertes</span>
             </div>
           </div>

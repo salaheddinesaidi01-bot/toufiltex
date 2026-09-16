@@ -25,26 +25,26 @@ export function QuoteDrawer() {
             alignItems: "center",
             justifyContent: "space-between",
             paddingBottom: "1.2rem",
-            borderBottom: "1px solid var(--border-subtle)",
+            borderBottom: "1px solid #e2e8f0",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
             <div
               style={{
-                width: "32px",
-                height: "32px",
+                width: "34px",
+                height: "34px",
                 borderRadius: "8px",
-                background: "var(--color-gold-glow)",
+                background: "rgba(15, 43, 92, 0.08)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "var(--color-gold)",
+                color: "#0f2b5c",
               }}
             >
               <Package size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: "1.15rem", fontWeight: 700 }}>Mon Panier de Devis</h3>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0f172a" }}>Mon Panier de Devis</h3>
               <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
                 {items.length} référence{items.length > 1 ? "s" : ""} sélectionnée{items.length > 1 ? "s" : ""}
               </span>
@@ -58,7 +58,7 @@ export function QuoteDrawer() {
               color: "var(--text-secondary)",
               cursor: "pointer",
               padding: "0.4rem",
-              borderRadius: "var(--radius-sm)",
+              borderRadius: "6px",
             }}
           >
             <X size={20} />
@@ -69,12 +69,12 @@ export function QuoteDrawer() {
         <div style={{ flex: 1, overflowY: "auto", padding: "1.2rem 0", display: "flex", flexDirection: "column", gap: "1rem" }}>
           {items.length === 0 ? (
             <div style={{ textAlign: "center", padding: "3rem 1rem", color: "var(--text-muted)" }}>
-              <Package size={48} strokeWidth={1} style={{ margin: "0 auto 1rem", opacity: 0.4 }} />
-              <p style={{ fontWeight: 600, fontSize: "1.05rem", color: "var(--text-primary)", marginBottom: "0.4rem" }}>
+              <Package size={44} strokeWidth={1.5} style={{ margin: "0 auto 1rem", opacity: 0.4 }} />
+              <p style={{ fontWeight: 700, fontSize: "1.05rem", color: "var(--text-primary)", marginBottom: "0.4rem" }}>
                 Votre panier de devis est vide
               </p>
-              <p style={{ fontSize: "0.85rem", marginBottom: "1.5rem" }}>
-                Parcourez notre catalogue et sélectionnez les tissus ou fils souhaités pour recevoir un chiffrage personnalisé.
+              <p style={{ fontSize: "0.85rem", marginBottom: "1.5rem", color: "var(--text-secondary)" }}>
+                Parcourez le catalogue Toufiltex et sélectionnez les fils ou matières souhaités pour recevoir un chiffrage rapide.
               </p>
               <button
                 onClick={() => setIsDrawerOpen(false)}
@@ -88,13 +88,14 @@ export function QuoteDrawer() {
               <div
                 key={item.product.id}
                 style={{
-                  background: "rgba(255, 255, 255, 0.03)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-md)",
+                  background: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "10px",
                   padding: "0.9rem",
                   display: "flex",
                   gap: "0.8rem",
                   position: "relative",
+                  boxShadow: "0 2px 8px rgba(15, 23, 42, 0.04)",
                 }}
               >
                 {/* Image */}
@@ -106,6 +107,7 @@ export function QuoteDrawer() {
                     overflow: "hidden",
                     position: "relative",
                     flexShrink: 0,
+                    border: "1px solid #e2e8f0",
                   }}
                 >
                   <Image
@@ -147,50 +149,52 @@ export function QuoteDrawer() {
                       <Trash2 size={15} />
                     </button>
                   </div>
-                  <span style={{ fontSize: "0.75rem", color: "var(--color-gold-light)", fontWeight: 600 }}>
-                    Réf: {item.product.reference} • {item.product.grammage} g/m²
+                  <span style={{ fontSize: "0.75rem", color: "#0f2b5c", fontWeight: 700 }}>
+                    Réf: {item.product.reference} • {item.product.composition}
                   </span>
 
                   {/* Quantity & Sample controls */}
                   <div style={{ marginTop: "0.6rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                      <label style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Métrage :</label>
+                      <label style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>Quantité :</label>
                       <input
                         type="number"
                         min="1"
                         value={item.quantityMeters}
                         onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value) || 1)}
                         style={{
-                          width: "60px",
-                          padding: "0.25rem 0.4rem",
-                          background: "rgba(0,0,0,0.3)",
-                          border: "1px solid var(--border-subtle)",
+                          width: "55px",
+                          padding: "0.25rem 0.35rem",
+                          background: "#f8fafc",
+                          border: "1px solid #cbd5e1",
                           borderRadius: "4px",
-                          color: "#fff",
+                          color: "#0f172a",
                           fontSize: "0.85rem",
                           textAlign: "center",
+                          fontWeight: 700,
                         }}
                       />
-                      <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>m</span>
+                      <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>kg</span>
                     </div>
 
                     <button
                       onClick={() => toggleSample(item.product.id)}
                       style={{
-                        background: item.sampleOnly ? "rgba(197, 155, 39, 0.2)" : "transparent",
-                        border: item.sampleOnly ? "1px solid var(--color-gold)" : "1px solid var(--border-subtle)",
-                        borderRadius: "4px",
+                        background: item.sampleOnly ? "rgba(15, 43, 92, 0.08)" : "transparent",
+                        border: item.sampleOnly ? "1.5px solid #0f2b5c" : "1px solid #cbd5e1",
+                        borderRadius: "5px",
                         padding: "0.2rem 0.5rem",
                         fontSize: "0.72rem",
-                        color: item.sampleOnly ? "var(--color-gold-light)" : "var(--text-secondary)",
+                        color: item.sampleOnly ? "#0f2b5c" : "var(--text-secondary)",
                         cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
                         gap: "0.3rem",
+                        fontWeight: item.sampleOnly ? 700 : 500,
                       }}
                     >
                       {item.sampleOnly && <Check size={12} />}
-                      Échantillon gratuit
+                      Échantillon 48h
                     </button>
                   </div>
                 </div>
@@ -201,15 +205,15 @@ export function QuoteDrawer() {
 
         {/* Footer actions */}
         {items.length > 0 && (
-          <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "1.2rem", display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+          <div style={{ borderTop: "1px solid #e2e8f0", paddingTop: "1.2rem", display: "flex", flexDirection: "column", gap: "0.8rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.85rem", color: "var(--text-secondary)" }}>
               <span>Références à chiffrer :</span>
-              <strong style={{ color: "var(--text-primary)" }}>{items.length}</strong>
+              <strong style={{ color: "#0f2b5c", fontSize: "1rem" }}>{items.length}</strong>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.75rem", color: "var(--color-gold-light)", background: "rgba(197, 155, 39, 0.1)", padding: "0.5rem 0.8rem", borderRadius: "var(--radius-sm)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.75rem", color: "#0f2b5c", background: "rgba(15, 43, 92, 0.06)", padding: "0.5rem 0.8rem", borderRadius: "6px" }}>
               <Sparkles size={14} style={{ flexShrink: 0 }} />
-              <span>Chiffrage sur-mesure dégressif selon volume & conditions de livraison B2B.</span>
+              <span>Chiffrage direct filature dégressif selon volume et cadence B2B.</span>
             </div>
 
             <Link

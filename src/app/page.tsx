@@ -194,7 +194,7 @@ export default function HomePage() {
             {/* CARTE 2 : FILS EN POLYESTER */}
             <div className="modern-product-card reveal-on-scroll stagger-2">
               <div className="card-image-wrap">
-                <span className="card-badge" style={{ background: "#c24637" }}>POLYESTER</span>
+                <span className="card-badge">POLYESTER</span>
                 <img
                   src="/images/fils-polyester.jpg"
                   alt="Fils en Polyester"
@@ -218,7 +218,7 @@ export default function HomePage() {
             {/* CARTE 3 : FILS DE CONFECTION */}
             <div className="modern-product-card reveal-on-scroll stagger-3">
               <div className="card-image-wrap">
-                <span className="card-badge" style={{ background: "#059669" }}>CONFECTION</span>
+                <span className="card-badge">CONFECTION</span>
                 <img
                   src="/images/fils-confection.jpg"
                   alt="Fils de Confection"
@@ -508,7 +508,7 @@ export default function HomePage() {
             <div id="contact" className="devis-info-box reveal-on-scroll stagger-2">
               <div className="info-card-contact">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.8rem" }}>
-                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(37, 211, 102, 0.15)", color: "#25d366", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(15, 43, 92, 0.08)", color: "var(--primary-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.579 4.183 1.589 5.926l-1.589 5.8 5.975-1.567c1.705.952 3.67 1.491 5.76 1.491 6.627 0 12-5.373 12-12s-5.373-12-12-12z" />
                     </svg>
@@ -525,7 +525,7 @@ export default function HomePage() {
 
               <div className="info-card-contact">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.8rem" }}>
-                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(15, 43, 92, 0.1)", color: "var(--primary-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(15, 43, 92, 0.08)", color: "var(--primary-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                       <polyline points="22,6 12,13 2,6" />
@@ -543,7 +543,7 @@ export default function HomePage() {
 
               <div className="info-card-contact">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.8rem" }}>
-                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(194, 70, 55, 0.1)", color: "var(--accent-red)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(15, 43, 92, 0.08)", color: "var(--primary-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                       <circle cx="12" cy="10" r="3" />
