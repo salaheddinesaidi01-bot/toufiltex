@@ -78,14 +78,14 @@ function CatalogueContent() {
         {/* Header */}
         <div style={{ marginBottom: "2.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
-            <span className="badge badge-gold">Sourcing Matières & Échantillonnage</span>
+            <span className="badge badge-gold">Sourcing Fils & Matières Textiles</span>
           </div>
           <h1 style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 800, color: "var(--text-primary)" }}>
-            Catalogue des Tissus & Fils
+            Catalogue & Gammes de Fils Industriels
           </h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", maxWidth: "700px", marginTop: "0.4rem" }}>
-            Explorez notre collection de tissus haut de gamme pour l&apos;ameublement, l&apos;hôtellerie,
-            la mode et l&apos;industrie. Ajoutez des métrages ou des échantillons gratuits à votre devis.
+            Explorez les gammes de fils disponibles (industriels, polyester, confection), leurs types, titrages et
+            conditionnements importés pour vos ateliers en Algérie.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ function CatalogueContent() {
             />
             <input
               type="text"
-              placeholder="Rechercher par nom, référence (ex: SAT-EGY), composition, lin, coton..."
+              placeholder="Rechercher par nom de fil, référence (ex: TF-POLY), matière, polyester, coton..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="input"
@@ -141,9 +141,9 @@ function CatalogueContent() {
                 transition: "all 0.2s ease",
               }}
             >
-              Tous les tissus ({PRODUCTS.length})
+              Toutes les gammes ({productsList.length})
             </button>
-            {CATEGORIES.map((cat) => {
+            {categoriesList.map((cat) => {
               const active = selectedCategory === cat.slug;
               return (
                 <button
