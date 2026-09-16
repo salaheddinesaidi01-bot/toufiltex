@@ -80,7 +80,7 @@ export function CraftNavbar() {
         </div>
       </Link>
 
-      {/* 2. LIENS DE NAVIGATION (Présentation, À propos de nous, Contact) */}
+      {/* 2. LIENS DE NAVIGATION (Qui sommes-nous, Nos gammes de fils, Contact) */}
       <div
         style={{
           display: "flex",
@@ -98,19 +98,7 @@ export function CraftNavbar() {
             transition: "color 0.2s ease",
           }}
         >
-          Présentation
-        </a>
-        <a
-          href="#engagement"
-          style={{
-            textDecoration: "none",
-            fontSize: "0.92rem",
-            fontWeight: 700,
-            color: "var(--text-dark)",
-            transition: "color 0.2s ease",
-          }}
-        >
-          À propos de nous
+          Qui sommes-nous
         </a>
         <a
           href="#catalogue"
@@ -122,7 +110,7 @@ export function CraftNavbar() {
             transition: "color 0.2s ease",
           }}
         >
-          Catalogue
+          Nos gammes de fils
         </a>
         <a
           href="#devis"
