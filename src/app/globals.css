@@ -931,50 +931,340 @@ body {
 }
 
 /* ============================================================ */
-/* LUXURY CATALOGUE ENHANCEMENTS (COLORS, BUTTONS & ANIMATIONS) */
+/* DESIGNER ARCHITECTURAL CATALOGUE STYLES                     */
+/* Palette: Deep Navy (#0f2b5c), Clean Surface (#ffffff),      */
+/* Muted Border (#e2e8f0), Slate (#334155 / #64748b)           */
 /* ============================================================ */
 
-.modern-catalogue-card:hover {
-  transform: translateY(-8px) scale(1.012);
-  box-shadow: 0 20px 40px rgba(15, 43, 92, 0.12) !important;
-  border-color: rgba(15, 43, 92, 0.3) !important;
+.designer-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
 }
 
-.modern-catalogue-card:hover .product-card-img {
-  transform: scale(1.08);
+.designer-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(15, 43, 92, 0.09);
+  border-color: rgba(15, 43, 92, 0.25);
 }
 
-.card-btn-outline:hover {
-  background-color: var(--primary-blue) !important;
-  color: #ffffff !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 43, 92, 0.2);
+.card-visual-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background-color: #f1f5f9;
 }
 
-.card-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(15, 43, 92, 0.35) !important;
-  filter: brightness(1.08);
+.card-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-btn-whatsapp:hover {
-  background-color: rgba(37, 211, 102, 0.22) !important;
-  border-color: rgba(37, 211, 102, 0.6) !important;
+.designer-product-card:hover .card-product-image {
+  transform: scale(1.04);
+}
+
+.card-image-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0) 50%, rgba(15, 23, 42, 0.65) 100%);
+  pointer-events: none;
+}
+
+.card-top-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.card-category-tag {
+  background: #0f2b5c;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+}
+
+.card-stock-status {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stock-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+}
+
+.card-bottom-info {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.card-ref-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  background: rgba(15, 43, 92, 0.85);
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-spec-badge {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #f8fafc;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.18rem 0.45rem;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.card-content-wrap {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-product-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+  line-height: 1.35;
+}
+
+.card-product-composition {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+  line-height: 1.5;
+}
+
+.card-tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.74rem;
+}
+
+.tech-chip {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+.certif-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: rgba(15, 43, 92, 0.05);
+  color: var(--primary-blue);
+  border-color: rgba(15, 43, 92, 0.15);
+}
+
+.card-colors-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.colors-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.colors-dots {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.color-swatch-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.color-swatch-dot:hover {
+  transform: scale(1.25);
+}
+
+.card-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.3rem;
+}
+
+.btn-card-details {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  border: 1.5px solid #0f2b5c;
+  background-color: #ffffff;
+  color: #0f2b5c;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-card-details:hover {
+  background-color: #f8fafc;
+  border-color: #0a1c3d;
+  color: #0a1c3d;
+}
+
+.btn-card-quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  border: none;
+  background-color: #0f2b5c;
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(15, 43, 92, 0.15);
+  transition: all 0.2s ease;
+}
+
+.btn-card-quote:hover {
+  background-color: #1e3a8a;
   transform: translateY(-1px);
 }
 
-.category-pill-btn:hover {
-  transform: translateY(-2px);
+.btn-card-quote.is-added {
+  background-color: #15803d;
+  box-shadow: 0 3px 10px rgba(21, 128, 61, 0.2);
 }
 
-.color-dot-hover:hover {
-  transform: scale(1.35);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+.btn-card-whatsapp {
+  margin-top: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 7px;
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-card-whatsapp:hover {
+  background-color: #dcfce7;
+  border-color: #86efac;
+}
+
+/* BOUTONS DE CATÉGORIE HARMONISÉS */
+.designer-category-pill {
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1.5px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.designer-category-pill:hover {
+  border-color: #0f2b5c;
+  color: #0f2b5c;
+  background-color: #f8fafc;
+}
+
+.designer-category-pill.is-active {
+  background-color: #0f2b5c;
+  color: #ffffff;
+  border-color: #0f2b5c;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(15, 43, 92, 0.15);
+}
+
+.pill-count-badge {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.designer-category-pill.is-active .pill-count-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .catalogue-search-input:focus {
   border-color: var(--primary-blue) !important;
-  box-shadow: 0 0 0 4px rgba(15, 43, 92, 0.12) !important;
+  box-shadow: 0 0 0 3px rgba(15, 43, 92, 0.1) !important;
   background-color: #ffffff !important;
 }
 
