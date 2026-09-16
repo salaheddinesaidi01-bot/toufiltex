@@ -231,31 +231,31 @@ export default function HomePage() {
               <div className="card">
                 <span className="card-tag">INDUSTRIEL</span>
                 <img
-                  src="https://images.unsplash.com/photo-1578353022142-09264fd64295?auto=format&fit=crop&w=400&q=80"
-                  alt="Fils Industriels"
+                  src="/images/bobines-fil-industriel.jpg"
+                  alt="Fils Industriels & Techniques"
                 />
                 <h3>Fils Industriels & Techniques</h3>
                 <p>Fils à haute résistance conçus pour les cadences élevées.</p>
               </div>
 
               <div className="card">
-                <span className="card-tag">TEXTURE</span>
+                <span className="card-tag">POLYESTER</span>
                 <img
-                  src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80"
-                  alt="Fibres"
+                  src="/images/fils-polyester.jpg"
+                  alt="Fils en Polyester"
                 />
-                <h3>Fibres de Précision</h3>
-                <p>Garantit une régularité de tissage parfaite sans imperfection.</p>
+                <h3>Fils en Polyester</h3>
+                <p>Fils polyester haute ténacité pour tissage et couture sans rupture.</p>
               </div>
 
               <div className="card">
-                <span className="card-tag">ATELIER</span>
+                <span className="card-tag">CONFECTION</span>
                 <img
-                  src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=500&q=80"
+                  src="/images/fils-confection.jpg"
                   alt="Fils de Confection"
                 />
                 <h3>Fils de Confection</h3>
-                <p>Choix idéal pour les ateliers de prêt-à-porter et linge.</p>
+                <p>Nuancier riche et fils résistants pour ateliers de prêt-à-porter et couture.</p>
               </div>
             </div>
 
@@ -331,8 +331,8 @@ export default function HomePage() {
             {/* Polaroid 2 */}
             <div className="polaroid" style={{ transform: "rotate(-2deg)", margin: "0 auto", maxWidth: "350px" }}>
               <img
-                src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80"
-                alt="Fil"
+                src="/images/fils-industriels-cones.jpg"
+                alt="Fils textiles de qualité supérieure Toufiltex"
               />
               <div className="polaroid-caption handwritten" style={{ fontSize: "1.1rem" }}>
                 Qualité de fil constante contrôlée à chaque lot
