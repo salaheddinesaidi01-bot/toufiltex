@@ -34,8 +34,8 @@ export function CraftNavbar() {
         transition: "all 0.25s ease",
       }}
     >
-      {/* 1. LOGO EMBLEM TOUFILTEX */}
-      <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+      {/* 1. LOGO EMBLEM TOUFILTEX À GAUCHE */}
+      <Link href="/" style={{ textDecoration: "none", color: "inherit", zIndex: 10 }}>
         <div
           style={{
             display: "inline-flex",
@@ -87,30 +87,35 @@ export function CraftNavbar() {
         </div>
       </Link>
 
-      {/* 2. BOUTONS CADRÉS DE NAVIGATION (Qui sommes-nous, Nos gammes de fils, Contact) */}
+      {/* 2. NAVIGATION PARFAITEMENT DANS LE MILIEU (CENTRE DE LA NAVBAR) */}
       <div
+        className="nav-center-container"
         style={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
           display: "flex",
           alignItems: "center",
-          gap: "0.9rem",
-          flexWrap: "wrap",
+          gap: "1.25rem",
+          zIndex: 5,
         }}
       >
         <a
           href="#presentation"
           style={{
             textDecoration: "none",
-            fontSize: "0.88rem",
+            fontSize: "0.92rem",
             fontWeight: 700,
             color: "#0f2b5c",
-            padding: "0.55rem 1.15rem",
+            padding: "0.55rem 1.35rem",
             borderRadius: "8px",
             border: "1.5px solid #0f2b5c",
             backgroundColor: "#ffffff",
-            boxShadow: "0 2px 5px rgba(15, 43, 92, 0.05)",
+            boxShadow: "0 2px 6px rgba(15, 43, 92, 0.06)",
             transition: "all 0.2s ease",
             display: "inline-flex",
             alignItems: "center",
+            whiteSpace: "nowrap",
           }}
           className="nav-btn-framed"
         >
@@ -121,17 +126,18 @@ export function CraftNavbar() {
           href="#gammes"
           style={{
             textDecoration: "none",
-            fontSize: "0.88rem",
+            fontSize: "0.92rem",
             fontWeight: 700,
             color: "#0f2b5c",
-            padding: "0.55rem 1.15rem",
+            padding: "0.55rem 1.35rem",
             borderRadius: "8px",
             border: "1.5px solid #0f2b5c",
             backgroundColor: "#ffffff",
-            boxShadow: "0 2px 5px rgba(15, 43, 92, 0.05)",
+            boxShadow: "0 2px 6px rgba(15, 43, 92, 0.06)",
             transition: "all 0.2s ease",
             display: "inline-flex",
             alignItems: "center",
+            whiteSpace: "nowrap",
           }}
           className="nav-btn-framed"
         >
@@ -142,23 +148,27 @@ export function CraftNavbar() {
           href="#devis"
           style={{
             textDecoration: "none",
-            fontSize: "0.88rem",
+            fontSize: "0.92rem",
             fontWeight: 700,
             color: "#0f2b5c",
-            padding: "0.55rem 1.15rem",
+            padding: "0.55rem 1.35rem",
             borderRadius: "8px",
             border: "1.5px solid #0f2b5c",
             backgroundColor: "#ffffff",
-            boxShadow: "0 2px 5px rgba(15, 43, 92, 0.05)",
+            boxShadow: "0 2px 6px rgba(15, 43, 92, 0.06)",
             transition: "all 0.2s ease",
             display: "inline-flex",
             alignItems: "center",
+            whiteSpace: "nowrap",
           }}
           className="nav-btn-framed"
         >
           Contact
         </a>
       </div>
+
+      {/* 3. ESPACEMENT POUR ÉQUILIBRER LE LOGO À GAUCHE */}
+      <div style={{ width: "135px" }} className="nav-desktop-spacer" />
     </nav>
   );
 }

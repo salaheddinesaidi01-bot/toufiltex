@@ -131,6 +131,36 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* BANDEAU DÉFILANT ANIMÉ CONTINU (MARQUEE RIBBON) */}
+      <div className="animated-ticker-ribbon">
+        <div className="ticker-track">
+          <span>IMPORTATION DIRECTE USINE SANS INTERMÉDIAIRE</span>
+          <span className="ticker-separator">✦</span>
+          <span>FILS 100% POLYESTER HAUTE TÉNACITÉ</span>
+          <span className="ticker-separator">✦</span>
+          <span>STOCK DISPONIBLE À TLEMCEN</span>
+          <span className="ticker-separator">✦</span>
+          <span>EXPÉDITION D&apos;ÉCHANTILLONS SOUS 48H</span>
+          <span className="ticker-separator">✦</span>
+          <span>LIVRAISON 58 WILAYAS</span>
+          <span className="ticker-separator">✦</span>
+          <span>CADENCES INDUSTRIELLES GARANTIES</span>
+          <span className="ticker-separator">✦</span>
+          <span>IMPORTATION DIRECTE USINE SANS INTERMÉDIAIRE</span>
+          <span className="ticker-separator">✦</span>
+          <span>FILS 100% POLYESTER HAUTE TÉNACITÉ</span>
+          <span className="ticker-separator">✦</span>
+          <span>STOCK DISPONIBLE À TLEMCEN</span>
+          <span className="ticker-separator">✦</span>
+          <span>EXPÉDITION D&apos;ÉCHANTILLONS SOUS 48H</span>
+          <span className="ticker-separator">✦</span>
+          <span>LIVRAISON 58 WILAYAS</span>
+          <span className="ticker-separator">✦</span>
+          <span>CADENCES INDUSTRIELLES GARANTIES</span>
+          <span className="ticker-separator">✦</span>
+        </div>
+      </div>
+
       {/* ========================================================= */}
       {/* SECTION 2 : NOS GAMMES DE FILS (OVERLAPPING CARDS)        */}
       {/* ========================================================= */}
@@ -324,13 +354,22 @@ export default function HomePage() {
 
           <div className="reveal-on-scroll stagger-2">
             <div className="expertise-visual-card">
-              <img
-                src="/images/fils-industriels-cones.jpg"
-                alt="Fils textiles de qualité supérieure Toufiltex"
-              />
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="expertise-video-elem"
+              >
+                <source src="/videos/hero-textile.mp4" type="video/mp4" />
+              </video>
+              <div className="live-indicator-pill">
+                <span className="live-pulse-dot" />
+                <span>FILATURE & ENROULAGE HAUTE PRÉCISION</span>
+              </div>
               <div className="expertise-visual-badge">
-                <h5>Contrôle Qualité & Échantillons</h5>
-                <p>Chaque lot importé répond aux critères d&apos;uniformité et de résistance requis par l&apos;industrie textile moderne.</p>
+                <h5>Arrivages Continus & Contrôle Qualité Strict</h5>
+                <p>Visualisez la régularité du bobinage et l&apos;absence de friction. Chaque lot importé répond aux normes industrielles les plus strictes.</p>
               </div>
             </div>
           </div>
