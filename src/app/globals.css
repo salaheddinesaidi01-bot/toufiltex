@@ -929,3 +929,61 @@ body {
     font-size: 1.85rem;
   }
 }
+
+/* ============================================================ */
+/* LUXURY CATALOGUE ENHANCEMENTS (COLORS, BUTTONS & ANIMATIONS) */
+/* ============================================================ */
+
+.modern-catalogue-card:hover {
+  transform: translateY(-8px) scale(1.012);
+  box-shadow: 0 20px 40px rgba(15, 43, 92, 0.12) !important;
+  border-color: rgba(15, 43, 92, 0.3) !important;
+}
+
+.modern-catalogue-card:hover .product-card-img {
+  transform: scale(1.08);
+}
+
+.card-btn-outline:hover {
+  background-color: var(--primary-blue) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 43, 92, 0.2);
+}
+
+.card-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 43, 92, 0.35) !important;
+  filter: brightness(1.08);
+}
+
+.card-btn-whatsapp:hover {
+  background-color: rgba(37, 211, 102, 0.22) !important;
+  border-color: rgba(37, 211, 102, 0.6) !important;
+  transform: translateY(-1px);
+}
+
+.category-pill-btn:hover {
+  transform: translateY(-2px);
+}
+
+.color-dot-hover:hover {
+  transform: scale(1.35);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.catalogue-search-input:focus {
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 4px rgba(15, 43, 92, 0.12) !important;
+  background-color: #ffffff !important;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .catalogue-layout-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

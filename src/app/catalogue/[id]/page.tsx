@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { PRODUCTS } from "@/lib/data";
 import { useCart } from "@/lib/cart-context";
 import { ProductCard } from "@/components/ProductCard";
+import { CraftNavbar } from "@/components/CraftNavbar";
 import {
   ShieldCheck,
   Check,
@@ -44,7 +45,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   };
 
   return (
-    <div style={{ padding: "3rem 0 6rem" }}>
+    <div style={{ paddingTop: "6.5rem", paddingBottom: "6rem", minHeight: "100vh", backgroundColor: "var(--bg-page)" }}>
+      <CraftNavbar />
       <div className="container">
         {/* Back Link */}
         <Link
